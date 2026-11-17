@@ -1,0 +1,18 @@
+import React from "react";
+import styles from "./Track.module.css";
+
+function Track({track, isRemoval}) {
+    return (
+        <div className={styles.Track}>
+            <div className={styles.TrackInformation}>
+                <h3>{track.name}</h3>
+                <p>{track.artist} | {track.album}</p>
+            </div>
+            <button className={styles.TrackAction}>
+                {isRemoval ? '-' : '+'}
+            </button>
+        </div>
+    );
+}
+
+export default Track;

@@ -1,14 +1,35 @@
-import { useState } from 'react'
-import './App.css'
+import React, { useState } from "react";
+import styles from "./App.module.css";
+import SearchBar from "./components/SearchBar/SearchBar";
+import SearchResults from "./components/SearchResults/SearchResults";
+import Playlist from "./components/Playlist/Playlist";
 
 function App() {
+    const [searchResults, setSearchResults] = useState([
+      {id: 1, name: "Chemical", artist: "Post Malone", album: "Austin"}, 
+      {id: 2, name: "Money for Nothing", artist: "Dire Straits", album: "Brothers in Arms"}, 
+      {id: 3, name: "Africa", artist: "Toto", album: "Toto IV"},
+    ]);
+    const [playlistName, setPlaylistName] = useState("My new playlist");
+    const [playlistTracks, setPlaylistTracks] = useState([
+      {id: 4, name: "Roxanne", artist: "The Police", album: "Outlandos d'Amour"},
+    ]);
 
-  return (
-    <>
-          <h1>Get started</h1>
-       
-    </>
-  )
+    return (
+        <div>
+            <h1>Let's Jammm!</h1>
+            <div className={styles.App}>
+                <SearchBar />
+                <div className={styles.AppPlaylists}>
+                    <SearchResults searchResults={searchResults} />
+                    <Playlist 
+                    playlistName={playlistName} 
+                    playlistTracks={playlistTracks} 
+                    />
+                </div>
+            </div>
+        </div>
+    );
 }
 
-export default App
+export default App;
