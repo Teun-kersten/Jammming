@@ -15,16 +15,34 @@ function App() {
       {id: 4, name: "Roxanne", artist: "The Police", album: "Outlandos d'Amour"},
     ]);
 
+    const addTrack = (track) => {
+        if (playlistTracks.some((savedTrack) => savedTrack.id === track.id)) {
+            return;
+        }
+        setPlaylistTracks((prevTracks) => [...prevTracks, track]);
+    }
+
+    const removeTrack = (track) => {
+        setPlaylistTracks((prevTracks) => 
+            prevTracks.filter((savedTrack) => savedTrack.id !== track.id));
+    }
+
+    const changePlaylistName = (newName) => {
+        setPlaylistName(newName);
+    }
+
     return (
         <div>
             <h1>Let's Jammm!</h1>
             <div className={styles.App}>
                 <SearchBar />
                 <div className={styles.AppPlaylists}>
-                    <SearchResults searchResults={searchResults} />
+                    <SearchResults searchResults={searchResults} onAdd={addTrack} />
                     <Playlist 
                     playlistName={playlistName} 
-                    playlistTracks={playlistTracks} 
+                    playlistTracks={playlistTracks}
+                    onRemove={removeTrack} 
+                    onNameChange={changePlaylistName}
                     />
                 </div>
             </div>
