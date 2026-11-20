@@ -6,8 +6,7 @@ import Playlist from "./components/Playlist/Playlist";
 import Spotify from "./util/Spotify";
 
 function App() {
-    const [searchResults, setSearchResults] = useState([
-    ]);
+    const [searchResults, setSearchResults] = useState([]);
     const [playlistName, setPlaylistName] = useState("My new playlist");
     const [playlistTracks, setPlaylistTracks] = useState([]);
 
@@ -42,13 +41,17 @@ function App() {
         setPlaylistName("New Playlist");
     }
 
+    const playlistTrackids = new Set(playlistTracks.map((track) => track.id));
+    const filteredSearchResults = searchResults.filter(
+        (track) => !playlistTrackids.has(track.id));
+
     return (
         <div>
             <h1>Let's Jammm!</h1>
             <div className={styles.App}>
                 <SearchBar onSearch={search} />
                 <div className={styles.AppPlaylists}>
-                    <SearchResults searchResults={searchResults} onAdd={addTrack} />
+                    <SearchResults searchResults={filteredSearchResults} onAdd={addTrack} />
                     <Playlist 
                     playlistName={playlistName} 
                     playlistTracks={playlistTracks}
